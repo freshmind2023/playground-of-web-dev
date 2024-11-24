@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask and JavaScript Example</title>
+</head>
+<body>
+    <h1>Flask with JavaScript</h1>
+
+    <div>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage1"></p>
+    </div>
+    <h1>Survey Form 7</h1>
+    <form id="surveyForm">
+    <p>What is your favorite programming language?</p>
+    <label>
+        <input type="radio" name="language" value="Python" required> Python
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="JavaScript"> JavaScript
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="Java"> Java
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="C++"> C++
+    </label><br>
+    <button type="submit">Submit</button>
+    </form>
+    <p id="responseMessage2"></p>
+
+    <script src="{{url_for('static', filename='js/forms.js')}}?v=11"> </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask and JavaScript Example</title>
+</head>
+<body>
+    <h1>Flask with JavaScript</h1>
+
+    
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage1"></p>
+
+    <h1>Survey Form</h1>
+    <form id="surveyForm">
+    <p>What is your favorite programming language?</p>
+    <label>
+        <input type="radio" name="language" value="Python" required> Python
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="JavaScript"> JavaScript
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="Java"> Java
+    </label><br>
+    <label>
+        <input type="radio" name="language" value="C++"> C++
+    </label><br>
+    <button type="submit">Submit</button>
+    </form>
+    <p id="responseMessage2"></p>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', async () => {
+            const name = document.getElementById('nameInput').value;
+            const response = await fetch('/name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name }),
+            });
+            const result = await response.json();
+            document.getElementById('responseMessage1').textContent = result.message;
+        });
+
+        // JavaScript to handle the form submission
+        document.getElementById('surveyForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get the selected radio button value
+            const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
+
+            // Send the data to the Flask backend
+            const response = await fetch('/survey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ language: selectedLanguage }),
+            });
+
+            // Parse the JSON response and display a message
+            const result = await response.json();
+            document.getElementById('responseMessage2').textContent = result.message;
+        });
+    </script>
+</body>
+</html>

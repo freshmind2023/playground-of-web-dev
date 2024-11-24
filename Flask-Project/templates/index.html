@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask and JavaScript Example</title>
+</head>
+<body>
+    <h1>Flask with JavaScript</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage"></p>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', async () => {
+            const name = document.getElementById('nameInput').value;
+            const response = await fetch('/api/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name }),
+            });
+            const result = await response.json();
+            document.getElementById('responseMessage').textContent = result.message;
+        });
+    </script>
+</body>
+</html>
