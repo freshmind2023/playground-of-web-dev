@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <div id="gallery">
+        <!-- Images will be dynamically inserted here -->
+    </div>
+
+    <h1>Enter the File Name</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage"></p>
+
+    <div id="displayed-image" style="margin-top: 20px;"></div>
+
+    <script>
+
+        // Reference to the image list container
+        const displayedImageDiv = document.getElementById('displayed-image');
+
+        // Function to fetch and display an individual image
+
+        function fetchImage(imageName) {
+            fetch(`/image/${imageName}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Image not found');
+                    }
+                    return response.blob(); // Get the image as a Blob
+                })
+                .then(blob => {
+                    // Create a URL for the Blob and display the image
+                    const imgUrl = URL.createObjectURL(blob);
+                    displayedImageDiv.innerHTML = ""; // Clear the previous image
+                    const img = document.createElement('img');
+                    img.src = imgUrl;
+                    img.alt = imageName;
+                    img.style.width = "300px"; // Optional: Adjust the size
+                    displayedImageDiv.appendChild(img);
+                })
+                .catch(error => {
+                    console.error('Error fetching the image:', error);
+                    displayedImageDiv.textContent = 'Failed to load the image.';
+                });
+        }   
+
+        async function displayImage(event) {
+            event.preventDefault();
+            console.log(event.target.type)
+            const imageName = event.target.parentElement.querySelector('input[type="text"]').value;
+            console.log(imageName)
+            fetchImage(imageName)
+        }
+
+        // Fetch image metadata from Flask backend
+        fetch('/image')
+            .then(response => response.json())
+            .then(data => {
+                const gallery = document.getElementById('gallery');
+
+                data.images.forEach(image => {
+                    const link = document.createElement('a');
+                    link.href = "#"; // Prevent page navigation
+                    link.textContent = image.name;
+                    link.style.display = "block"; // Each link on a new line
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault(); // Prevent default link behavior
+                        fetchImage(image.name); // Fetch and display the image
+                    });
+                    gallery.appendChild(link);
+                });
+            })
+            .catch(error => console.error('Error fetching images:', error));
+        document.getElementById('sendButton').addEventListener('click', displayImage);
+    </script>
+</body>
+</html>

@@ -5,42 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask and JavaScript Example</title>
 </head>
-<body>
+<body data-page-name="test2.html">
     <h1>Counterfactual Simulation</h1>
     <h2>(data 2015-2022)</h2>
     <!-- First slider -->
     <label for="slider1"> Sodium level:</label>
-    <input type="range" id="slider1" name="slider1" min="0" max="1.5" step="0.1" value="0.5" oninput="updateValue('value1', this.value)">
+    <input type="range" id="slider1" name="slider1" min="0" max="1.5" step="0.1" value=0.5 oninput="updateValue('value1', this.value)">
     <span id="value1">0.5</span>
     <br><br>
     <!-- Second slider -->
     <label for="slider2"> Input water control:</label>
-    <input type="range" id="slider2" name="slider2" min="0" max="100" value="50" oninput="updateValue('value2', this.value)">
+    <input type="range" id="slider2" name="slider2" min="0" max="100" value=50 oninput="updateValue('value2', this.value)">
     <span id="value2">50</span>
     <br><br>
     <!-- Submit button -->
-    <button onclick="submitValues()">Run</button>
+    <button id="submitValues">Run</button>
     
     <!-- Response display -->
     <p id="response"></p>
-    <script>
-        // Update displayed value dynamically
-        function updateValue(spanId, value) {
-            document.getElementById(spanId).textContent = value;
-        }
-        // Submit values to the backend
-        async function submitValues() {
-            const slider1Value = document.getElementById('slider1').value;
-            const slider2Value = document.getElementById('slider2').value;
-            const response = await fetch('/process', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ value1: slider1Value, value2: slider2Value })
-            });
-            const result = await response.text();
-            document.getElementById('response').textContent = `Result: ${result}`;
-        }
-    </script>
+    <script src="{{url_for('static', filename='js/forms.js')}}?v=11"> </script>
     
 </body>
 </html>
