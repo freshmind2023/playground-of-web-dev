@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        .video-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .progress-bar {
+            width: 80%;
+            height: 5px;
+            background: #ddd;
+            cursor: pointer;
+        }
+        .progress-bar span {
+            display: block;
+            width: 0%;
+            height: 100%;
+            background: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="videoPlayer" controls>
+            <source src="{{ url_for('static', filename='video/test.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button id="playPauseBtn">Play</button>
+            <div class="progress-bar" id="progressBar">
+                <span id="progress"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        // Play/Pause Button functionality
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
+        // Update progress bar while video is playing
+        video.addEventListener('timeupdate', () => {
+            const progressPercent = (video.currentTime / video.duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+        });
+        // Seek functionality for progress bar
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const width = rect.width;
+            const newTime = (offsetX / width) * video.duration;
+            video.currentTime = newTime;
+        });
+    </script>
+</body>
+</html>
