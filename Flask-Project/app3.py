@@ -1,6 +1,4 @@
 from flask import Flask, render_template, send_from_directory, jsonify, url_for
-from pymongo import MongoClient
-import boto3
 import os
 
 app = Flask(__name__)
@@ -14,6 +12,9 @@ EXTENTIONS = [".jpg", ".jpeg", ".png", ".gif", ".bmp"]
 @app.route('/')
 def index():
     return render_template('test3.html')
+
+
+## Retrieve all images from a local directory.
 
 def get_images_from_directory(directory):
     """
