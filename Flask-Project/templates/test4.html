@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body data-page-name="test4.html">
+    <h1>Image Gallery 4</h1>
+    <script src="{{url_for('static', filename='js/forms.js')}}?"> </script>
+    <div id="gallery">
+        <!-- Images will be dynamically inserted here -->
+    </div>
+
+    <h1>Enter the File Name</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage"></p>
+
+    <div id="displayed-image" style="margin-top: 20px;"></div>
+
+</body>
+</html>
