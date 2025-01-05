@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask + PostgreSQL + JavaScript Example</title>
+</head>
+<body data-page-name="test6.html">
+    <h1>Flask +  PostgreSQL + JavaScript</h1>
+    <script src="{{url_for('static', filename='js/forms.js')}}?"> </script>
+    <div>
+        <h3>Data from Database:</h3>
+        <ul id="data-list"></ul>
+    </div>
+
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="sendButton">Send</button>
+    <p id="responseMessage"></p>
+    
+</body>
+</html>
