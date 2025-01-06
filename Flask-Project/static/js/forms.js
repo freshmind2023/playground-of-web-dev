@@ -1,3 +1,9 @@
+/**
+ * Filename: forms.js
+ * Author: Shujuan Ji
+ * Date: Jan. 5, 2025
+ */
+
 // Handler for Form 1
 async function handleName(event) {
     event.preventDefault();

@@ -1,3 +1,9 @@
+"""
+Filename: app7.py
+Author: Shujuan Ji
+Date: Jan. 5, 2025
+"""
+
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from config import Config

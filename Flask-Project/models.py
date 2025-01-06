@@ -1,3 +1,8 @@
+"""
+Filename: models.py
+Author: Shujuan Ji
+Date: Jan. 5, 2025
+"""
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

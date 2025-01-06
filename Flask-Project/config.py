@@ -1,3 +1,8 @@
+"""
+Filename: config.py
+Author: Shujuan Ji
+Date: Jan. 5, 2025
+"""
 import os
 class Config:
     SQLALCHEMY_DATABASE_URI = (
